@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environment
+.venv/
+
+# Docker
+*.pid
+*.log
+.env
+docker-compose.override.yml
+**/dbdata/
+**/ncdata/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+
+

@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=change-me-root
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=change-me
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  nextcloud:
+    image: nextcloud:27-apache
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:80"   # visit http://localhost:8081
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=change-me
+    volumes:
+      - ncdata:/var/www/html
+
+volumes:
+  dbdata:
+  ncdata:
+
